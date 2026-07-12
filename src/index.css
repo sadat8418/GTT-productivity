@@ -1,0 +1,218 @@
+:root {
+  --border: #d8dee8;
+  --text: #142033;
+  --muted: #64748b;
+  --surface: #ffffff;
+  --surface-soft: #f8fafc;
+  --accent: #2563eb;
+  font: 16px/1.45 system-ui, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  background: #e5edf6;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-width: 0;
+  min-height: 100svh;
+  margin: 0;
+}
+
+button {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 650;
+  padding: 8px 12px;
+}
+
+button:hover {
+  border-color: var(--accent);
+}
+
+.workspace-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  width: 100%;
+  overflow: hidden;
+  background: linear-gradient(135deg, #edf4fb, #d8e4ee);
+}
+
+.workspace-toolbar {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.94);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  padding: 10px 14px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.toolbar-title {
+  align-items: baseline;
+  display: flex;
+  gap: 10px;
+  min-width: 0;
+}
+
+.toolbar-title strong {
+  color: #0f172a;
+  font-size: 17px;
+  white-space: nowrap;
+}
+
+.toolbar-title span {
+  color: var(--muted);
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.toolbar-actions {
+  flex: 0 0 auto;
+}
+
+.graph-scroll {
+  flex: 1;
+  overflow: auto;
+  padding: 14px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.graph-canvas {
+  background: linear-gradient(to bottom, #ffffff, #f8fbff);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+  display: block;
+  height: auto;
+  min-height: 640px;
+  min-width: 1040px;
+  touch-action: none;
+  width: 100%;
+}
+
+.graph-node {
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.graph-node:active {
+  cursor: grabbing;
+}
+
+.floating-message {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.16);
+  color: #2d3748;
+  font-size: 13px;
+  max-width: min(420px, calc(100vw - 24px));
+  padding: 8px 12px;
+  position: fixed;
+  right: 14px;
+  text-align: left;
+  z-index: 30;
+}
+
+.top-message {
+  top: 64px;
+}
+
+.status-message {
+  bottom: 14px;
+}
+
+.floating-message.error {
+  border-color: #fca5a5;
+  color: #b91c1c;
+}
+
+.modal-backdrop {
+  align-items: center;
+  background: rgba(15, 23, 42, 0.35);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: 16px;
+  position: fixed;
+  z-index: 40;
+}
+
+.note-modal {
+  background: var(--surface);
+  border-radius: 8px;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.24);
+  max-width: 420px;
+  padding: 18px;
+  width: 100%;
+}
+
+.note-modal h3 {
+  font-size: 18px;
+  margin: 0 0 12px;
+}
+
+.note-modal textarea {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font: inherit;
+  min-height: 180px;
+  padding: 10px;
+  resize: vertical;
+  width: 100%;
+}
+
+.note-modal button {
+  margin-top: 12px;
+}
+
+@media (max-width: 700px) {
+  .workspace-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .toolbar-title {
+    justify-content: space-between;
+  }
+
+  .toolbar-actions button,
+  .toolbar-actions > div,
+  .toolbar-actions > div button {
+    width: 100%;
+  }
+
+  .graph-scroll {
+    padding: 10px;
+  }
+
+  .graph-canvas {
+    min-height: 560px;
+    min-width: 900px;
+  }
+
+  .top-message {
+    top: 104px;
+  }
+}
