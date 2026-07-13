@@ -345,12 +345,22 @@ const saveNote = async (person, note) => {
         </div>
         <div className="toolbar-actions">
           {!user ? (
-            <Login />
-          ) : (
-            <button type="button" onClick={handleLogout}>
-              Logout
-            </button>
-          )}
+  <>
+    <button
+      type="button"
+      onClick={() => setShowInfo(true)}
+      className="info-button"
+    >
+      Note:
+    </button>
+
+    <Login />
+  </>
+) : (
+  <button type="button" onClick={handleLogout}>
+    Logout
+  </button>
+)}
         </div>
       </header>
 
@@ -476,7 +486,51 @@ const saveNote = async (person, note) => {
           })}
         </svg>
       </section>
+{showInfo && (
+  <div
+    className="modal-backdrop"
+    onClick={() => setShowInfo(false)}
+  >
+    <div
+      className="info-modal"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <h3>Note</h3>
 
+      <p>
+        <strong>GTD (Getting Things Done)</strong> is a productivity
+        methodology developed by David Allen.
+      </p>
+
+      <p>
+        This application provides a visual GTD decision tree to help you
+        organize incoming tasks.
+      </p>
+
+      <p>
+        <strong>If you sign in with Google:</strong>
+      </p>
+
+      <ul>
+        <li>Your notes are saved automatically.</li>
+        <li>Your node positions are remembered.</li>
+        <li>You can continue where you left off from any device.</li>
+      </ul>
+
+      <p>
+        Without signing in, you can still explore and interact with the map,
+        but your notes and layout won't be saved.
+      </p>
+
+      <button
+        type="button"
+        onClick={() => setShowInfo(false)}
+      >
+        Close
+      </button>
+    </div>
+  </div>
+)}
       {selectedPerson && (
         <div className="modal-backdrop">
           <div className="note-modal">
@@ -507,7 +561,7 @@ const saveNote = async (person, note) => {
               // }}
                   onChange={(event) => {
       const nextNote = event.target.value;
-
+      const [showInfo, setShowInfo] = useState(false);
       setNotes((prev) => ({
         ...prev,
         [selectedPerson.id]: nextNote,
