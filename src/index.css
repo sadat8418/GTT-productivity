@@ -27,7 +27,7 @@ body,
   margin: 0;
 }
 
-button {
+button, .note-modal button, .info-button {
   border: 1px solid var(--border);
   border-radius: 8px;
   background: var(--surface);
@@ -38,7 +38,7 @@ button {
   padding: 8px 12px;
 }
 
-button:hover {
+button:hover, .note-modal button:hover, .info-button:hover {
   border-color: var(--accent);
 }
 
@@ -182,9 +182,7 @@ button:hover {
   width: 100%;
 }
 
-.note-modal button {
-  margin-top: 12px;
-}
+
 
 @media (max-width: 700px) {
   .workspace-toolbar {
@@ -218,23 +216,21 @@ button:hover {
 }
 .info-button {
   background: #f8f6e8;
-  color: #555;
+  /* color: #555; */
   border: 1px solid #ddd4a8;
-  border-radius: 999px;
-  padding: 6px 14px;
-  font-size: 13px;
-  font-weight: 600;
+    /* font-weight: 900; */
+
   cursor: pointer;
   transition: all 0.2s ease;
   margin-right: 10px;
 }
 
 .info-button:hover {
-  background: #efe8b5;
+  background: #ffd199;
 }
 
 .info-modal {
-  width: 420px;
+  /* width: 420px; */
   max-width: 90vw;
   background: white;
   border-radius: 18px;
@@ -260,4 +256,46 @@ button:hover {
 
 .info-modal button {
   margin-top: 20px;
+}
+
+
+
+
+.guest-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.guest-actions button{
+    margin:0;
+}
+
+.app-footer {
+  width: 100%;
+  padding: 18px 24px;
+  margin-top: 20px;
+  text-align: center;
+  font-size: 13px;
+  color: #6b7280;
+  border-top: 1px solid #e5e7eb;
+  background: #fafafa;
+}
+
+.app-footer span {
+  color: #4b5563;
+  font-weight: 500;
+}
+
+.youtube-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: #333;
+}
+
+.youtube-icon {
+  color: #FF0000; 
+  font-size: 20px;  
 }

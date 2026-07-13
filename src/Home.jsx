@@ -3,6 +3,8 @@ import { signOut } from "firebase/auth";
 import { useAuth } from "./authContext";
 import { auth } from "./firebase/firebase";
 import Login from "./Login";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 // import { useRef } from "react";
 
 
@@ -174,6 +176,8 @@ const Relation = () => {
   const positionsRef = useRef(positions);
   const draggingIdRef = useRef(null);
 const saveTimeout = useRef(null);
+const [showInfo, setShowInfo] = useState(false);
+
   useEffect(() => {
     positionsRef.current = positions;
   }, [positions]);
@@ -344,24 +348,24 @@ const saveNote = async (person, note) => {
           {user && <span>{user.displayName || user.email}</span>}
         </div>
         <div className="toolbar-actions">
-          {!user ? (
-  <>
-    <button
-      type="button"
-      onClick={() => setShowInfo(true)}
-      className="info-button"
-    >
-      Note:
-    </button>
+  {!user ? (
+    <div className="guest-actions">
+      <button
+        type="button"
+        className="info-button"
+        onClick={() => setShowInfo(true)}
+      >
+        Note
+      </button>
 
-    <Login />
-  </>
-) : (
-  <button type="button" onClick={handleLogout}>
-    Logout
-  </button>
-)}
-        </div>
+      <Login />
+    </div>
+  ) : (
+    <button type="button" onClick={handleLogout}>
+      Logout
+    </button>
+  )}
+</div>
       </header>
 
       {user && isLoadingUserData && <div className="floating-message top-message">Loading saved layout...</div>}
@@ -438,6 +442,7 @@ const saveNote = async (person, note) => {
             const colors = getNodeColors(person);
             const labelLines = wrapNodeLabel(person.name);
             const firstLineY = pos.cy - ((labelLines.length - 1) * 14);
+            
             return (
               <g
                 key={person.id}
@@ -491,44 +496,47 @@ const saveNote = async (person, note) => {
     className="modal-backdrop"
     onClick={() => setShowInfo(false)}
   >
-    <div
-      className="info-modal"
-      onClick={(e) => e.stopPropagation()}
-    >
-      <h3>Note</h3>
+   <div
+  className="info-modal"
+  onClick={(e) => e.stopPropagation()}
+>
+  <h2>Welcome to GTD Map</h2>
 
-      <p>
-        <strong>GTD (Getting Things Done)</strong> is a productivity
-        methodology developed by David Allen.
-      </p>
-
-      <p>
-        This application provides a visual GTD decision tree to help you
-        organize incoming tasks.
-      </p>
-
-      <p>
-        <strong>If you sign in with Google:</strong>
-      </p>
-
-      <ul>
-        <li>Your notes are saved automatically.</li>
-        <li>Your node positions are remembered.</li>
-        <li>You can continue where you left off from any device.</li>
-      </ul>
-
-      <p>
-        Without signing in, you can still explore and interact with the map,
-        but your notes and layout won't be saved.
-      </p>
-
-      <button
-        type="button"
-        onClick={() => setShowInfo(false)}
+  <p>
+    <strong>GTD (Getting Things Done)</strong> is a productivity method
+    created by <strong>David Allen</strong>. It helps you quickly decide
+    what should happen with every task instead of keeping everything in your head. <a 
+        href="https://youtu.be/PX7KmasLv7g?si=2UCgYH_BHncecL5T" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="youtube-link"
       >
-        Close
-      </button>
-    </div>
+        <span> Watch on YouTube to know more </span>
+        <FontAwesomeIcon icon={faYoutube} className="youtube-icon" />
+        
+      </a>
+  </p>
+
+  <h4>How to use this app</h4>
+
+  <ul>
+    <li>🖱 Drag any node to arrange the workflow.</li>
+    <li>📝 <strong>Double-click</strong> any editable node to open its note.</li>
+    <li>⌨ Your notes are saved automatically after you stop typing or press the close button.</li>
+  </ul>
+
+  <h4>Sign in with Google</h4>
+
+  <ul>
+    <li>✔ Notes are permanently saved.</li>
+    <li>✔ Node positions are remembered.</li>
+    <li>✔ Continue from any device using your Google account.</li>
+  </ul>
+
+  <button onClick={() => setShowInfo(false)}>
+    Got it
+  </button>
+</div>
   </div>
 )}
       {selectedPerson && (
@@ -538,30 +546,9 @@ const saveNote = async (person, note) => {
             <textarea
               rows={8}
               value={notes[selectedPerson.id] || ""}
-              // onChange={(event) => {
-              //   const nextNote = event.target.value;
-
-              //   setNotes((prev) => ({
-              //     ...prev,
-              //     [selectedPerson.id]: nextNote,
-              //   }));
-
-              //   if (user) {
-              //     saveNodeNote(user.uid, selectedPerson, nextNote)
-              //       .then(() => {
-              //         setStatusMessage("Note saved.");
-              //       })
-              //       .catch((error) => {
-              //         console.error("Failed to save note", error);
-              //         setStatusMessage(`Could not save note: ${error.message}`);
-              //       });
-              //   } else {
-              //     setStatusMessage("Sign in with Google before saving notes.");
-              //   }
-              // }}
+            
                   onChange={(event) => {
       const nextNote = event.target.value;
-      const [showInfo, setShowInfo] = useState(false);
       setNotes((prev) => ({
         ...prev,
         [selectedPerson.id]: nextNote,
@@ -604,7 +591,11 @@ const saveNote = async (person, note) => {
           </div>
         </div>
       )}
+      <footer className="app-footer">
+  © {new Date().getFullYear()} Sadat Arefin. All Rights Reserved.
+</footer>
     </main>
+    
   );
 };
 
